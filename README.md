@@ -1,6 +1,6 @@
 ## Scripts to Run
 
-This is the frontend repo for thr application Student Registration System . In the project directory, you can run:
+This is the frontend repo for the application Student Registration System . In the project directory, you can run:
 
 ### `npm i`
 Use this for installing dependencies\
