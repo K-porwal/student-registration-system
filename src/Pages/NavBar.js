@@ -16,7 +16,7 @@ function NavBar() {
                         </h4>
                     <hr/>
                     <h2>
-                    Welcome User</h2>
+                    Welcome To The Registration System</h2>
                     <hr />
                 </div>
             </div>

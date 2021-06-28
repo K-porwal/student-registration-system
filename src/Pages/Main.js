@@ -9,7 +9,7 @@ function Main() {
     const history = useHistory();
 
     return (
-        < div className="Main" style={{backgroundImage :  'url("https://amymhaddad.s3.amazonaws.com/morocco-blue.png")'}}>
+        < div className="Main" style={{backgroundImage :  'url("https://images56.fotki.com/v1664/photos/5/115/13502360/oundforpowerpointaquabackgroun-vi.jpg")'}}>
             <NavBar />
             <div className='container fluid'>
                 <div className='row'>
