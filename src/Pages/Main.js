@@ -9,7 +9,7 @@ function Main() {
     const history = useHistory();
 
     return (
-        < div className="Main" style={{backgroundImage :  'url("https://images56.fotki.com/v1664/photos/5/115/13502360/oundforpowerpointaquabackgroun-vi.jpg")'}}>
+        < div className="Main" style={{ backgroundImage: 'url("https://images56.fotki.com/v1664/photos/5/115/13502360/oundforpowerpointaquabackgroun-vi.jpg")' }}>
             <NavBar />
             <div className='container fluid'>
                 <div className='row'>
@@ -19,30 +19,34 @@ function Main() {
                             history.push("/addStudent")
                         }}>
                             Add A Student Information</Button>
-                        <hr />                        
-
+                        <br />
+                        <br />
                         <Button className="btn btn-success" onClick={() => {
                             history.push("/students")
                         }}>
                             Display All Students</Button>
-                        <hr />
+                        <br />
+                        <br />
                         <Button className="btn btn-success" onClick={() => {
                             history.push("/getStudent")
                         }}> Display A Student By Id</Button>
-                        <hr />
+                        <br />
+                        <br />
                         <Button className="btn btn-success" onClick={() => {
                             history.push("/deleteStudent")
                         }}> Delete A Student Information </Button>
-                        <hr />
-                        <br/>
-                        
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
 
-            );
+    );
 }
 
 export default Main;
