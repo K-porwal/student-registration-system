@@ -26,3 +26,4 @@ Note:
 3. For seeing changes, please check the Display all Students link present on Home page
 4. Customized validation messages are added everywhere where possible.
 5. Id field is auto-generated bt PostgreSQL which is the database used for this application.
+6. Sort button sorts the records on the basis of Id field. On clicking Sort button once, it will sort according to ascending order of id and on clicking again, it will sort the records in descending order and so on.
