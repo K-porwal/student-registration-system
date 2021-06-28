@@ -1,21 +1,26 @@
-import { Navbar, Card, Button, Table, Alert } from 'react-bootstrap';
-import '../App.css';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Alert, Button } from 'react-bootstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { useHistory } from 'react-router-dom';
+import '../App.css';
 import { API_ROOT } from '../urls';
-import NavBar from './NavBar';
 import Footer from './Footer';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import NavBar from './NavBar';
 function DeleteStudent() {
     const [formField, setFormField] = useState({ id: "" })
     const [showSuccessful, setShowSuccessful] = useState(false);
+    const [errMsg, setErrMsg] = useState("Operation Unsuccessful ! Please try again");
     const [showUnsuccessful, setShowUnsuccessful] = useState(false);
 
 
     const validateForm = () => {
         const { id } = formField;
         if (id.trim().length === 0) {
+            setErrMsg("Id should be atleast of length 1");
+            return false;
+        }
+        else if(!RegExp(/^[0-9]+$/).test(id)){
+            setErrMsg("Id should be only postive integers");
             return false;
         }
         return true;
@@ -30,8 +35,6 @@ function DeleteStudent() {
             ...formField,
             [name]: value
         });
-
-        console.log(formField);
     }
 
     const handleSubmit = (event) => {
@@ -50,6 +53,7 @@ function DeleteStudent() {
 
 
         } else {
+            setShowUnsuccessful(true);
             console.log('Please fill the values');
         }
     }
@@ -62,7 +66,7 @@ function DeleteStudent() {
             <div className='text-center'>
 
                 <Alert variant='primary' show={showSuccessful} onClose={() => setShowSuccessful(false)} dismissible>Successfully Deleted !</Alert>
-                <Alert variant='danger' show={showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>Please enter the correct id !</Alert>
+                <Alert variant='danger' show={showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>{errMsg}</Alert>
 
             </div>
             <NavBar />
@@ -91,10 +95,11 @@ function DeleteStudent() {
                             </div>
                         </form>
 
-                        <Footer />
+
                     </div>
                 </div>
             </div>
+            <Footer />
         </div >
 
     );

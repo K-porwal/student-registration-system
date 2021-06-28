@@ -1,12 +1,12 @@
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Main from './Pages/Main.js'
 import AllStudents from './Pages/AllStudents.js';
-import GetStudent from './Pages/GetStudent';
-import EditStudent from './Pages/EditStudent';
-import DeleteStudent from './Pages/DeleteStudent';
-import PageNotFound from './Pages/PageNotFound.js';
-import {Route, Switch} from 'react-router-dom';
 import CreateStudent from './Pages/CreateStudent';
+import DeleteStudent from './Pages/DeleteStudent';
+import EditStudent from './Pages/EditStudent';
+import GetStudent from './Pages/GetStudent';
+import Main from './Pages/Main.js';
+import PageNotFound from './Pages/PageNotFound.js';
 function App() {
   return (
    

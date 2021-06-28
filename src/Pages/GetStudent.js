@@ -1,21 +1,26 @@
-import { Navbar, Card, Button, Table, Alert } from 'react-bootstrap';
-import '../App.css';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Alert, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 import { API_ROOT } from '../urls';
-import NavBar from './NavBar';
 import Footer from './Footer';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import NavBar from './NavBar';
 function GetStudent() {
-    const [students, setStudents] = useState([])
     const [formField, setFormField] = useState({ id: "" })
     const history = useHistory()
+    const [errMsg, setErrMsg] = useState("Operation Unsuccessful ! Please try again");
     const [showUnsuccessful, setShowUnsuccessful] = useState(false);
 
     const validateForm = () => {
         const { id } = formField;
         if (id.trim().length === 0) {
+            setErrMsg("Id should be atleast of length 1");
+            return false;
+        }
+        else if(!RegExp(/^[0-9]+$/).test(id)){
+            setErrMsg("Id should be only postive integers");
             return false;
         }
         return true;
@@ -30,7 +35,6 @@ function GetStudent() {
             ...formField,
             [name]: value
         });
-
     }
 
     const handleSubmit = (event) => {
@@ -44,12 +48,14 @@ function GetStudent() {
                 })
                 .catch(err => {
                     setShowUnsuccessful(true);
+                    setErrMsg('Something went wrong ! Please try again');
                     console.log(err);
                 })
 
 
         } else {
-            console.log('Please fill the input field');
+            setShowUnsuccessful(true);
+            console.log('Please fill the input field properly');
         }
     }
 
@@ -57,9 +63,9 @@ function GetStudent() {
 
 
     return (
-        < div className="GetStudent" >
+        < div className="GetStudent">
             <div className='text-center'>
-                <Alert variant='danger' show={showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>Please enter correct id !</Alert>
+                <Alert variant='danger' show={showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>{errMsg}</Alert>
             </div>
             <NavBar />
             <div className='container fluid'>
@@ -87,10 +93,11 @@ function GetStudent() {
                             </div>
                         </form>
 
-                        <Footer />
+                        
                     </div>
                 </div>
             </div>
+            <Footer />
         </div >
 
     );

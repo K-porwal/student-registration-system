@@ -1,12 +1,12 @@
-import { Navbar, Card, Button, Table } from 'react-bootstrap';
-import '../App.css';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Button, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 import { API_ROOT } from '../urls';
-import NavBar from './NavBar';
 import Footer from './Footer';
-import React, { useState, useEffect,useCallback } from 'react';
-import axios from 'axios'
+import NavBar from './NavBar';
 function AllStudents() {
     const [students, setStudents] = useState([])
     const [toggle, setToggle] = useState(false);
@@ -47,12 +47,6 @@ function AllStudents() {
                 <div className='row'>
                     <div className='col-md-3'></div>
                     <div className='col-md-6 pt-5'>
-                        {/* <ul>
-                        {students.map(student => (
-                            <li key = {student.id}>{student.id}{student.name}{student.address}{student.contactNo}</li>
-                        ))}
-
-                    </ul> */}
                         <Table striped bordered hover>
                             <thead>
                                 <tr>
@@ -85,10 +79,12 @@ function AllStudents() {
                             
                         </div>
                         <br/>
-                        <Footer/>
+                        <br/>
+                        
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div >
 
     );

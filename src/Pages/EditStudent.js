@@ -1,23 +1,58 @@
-import { Navbar, Card, Button, Alert } from 'react-bootstrap';
-import '../App.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Alert, Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { useHistory, useParams } from 'react-router-dom';
-import NavBar from './NavBar';
-import Footer from './Footer';
+import '../App.css';
 import { API_ROOT } from '../urls';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import Footer from './Footer';
+import NavBar from './NavBar';
 function EditStudent() {
     const [formField, setFormField] = useState({ name: "", address: "", contactNo: "" })
     const [showSuccessful, setShowSuccessful] = useState(false);
     const [showUnsuccessful, setShowUnsuccessful] = useState(false);
+    const [errMsg, setErrMsg] = useState("Operation Unsuccessful ! Please try again");
 
     const { id } = useParams()
 
-    console.log(formField);
     const validateForm = () => {
         const { name, address, contactNo } = formField;
-        if (name.trim().length === 0 || address.trim().length === 0 || contactNo.trim().length === 0) {
+        if (name.trim().length === 0)
+        {
+            setErrMsg("Name cannot be empty");
+            return false;
+        }
+        else if (name.trim().length > 25)
+        {
+            setErrMsg("Name cannot be greater than 25 characters");
+            return false;
+        }
+
+        else if (!RegExp(/^[a-zA-Z ]*$/).test(name))
+        {
+            setErrMsg("Name can only contain alphabets and space");
+            return false;
+        }
+
+        else if(address.trim().length === 0)
+        {
+            setErrMsg("Address cannot be empty");
+            return false;
+        }
+        else if(address.trim().length > 40)
+        {
+            setErrMsg("Address cannot be greater than 40");
+            return false;
+        }
+
+        else if(contactNo.trim().length === 0)
+        {
+            setErrMsg("Contact No. cannot be empty");
+            return false;
+        }
+        else if(!RegExp(/^\d{10}$/).test(contactNo))            
+        {
+            setErrMsg("Contact No. should be of length 10 and consisting of digits only") 
             return false;
         }
         return true;
@@ -33,7 +68,6 @@ function EditStudent() {
             [name]: value
         });
 
-        console.log(formField);
     }
 
     const handleSubmit = (event) => {
@@ -52,12 +86,14 @@ function EditStudent() {
                 })
                 .catch(err => {
                     console.log(err)
+                    setErrMsg('Something went wrong ! Please try again');
                     setShowUnsuccessful(true)
                 })
 
 
         } else {
-            console.log('Please fill the input fields. All fields are required');
+            console.log('Please fill the input fields properly. All fields are required');
+            setShowUnsuccessful(true);
         }
     }
 
@@ -67,21 +103,22 @@ function EditStudent() {
         axios
             .get(`${API_ROOT}/students/${id}`)
             .then(res => {
-                console.log(res)
-                setFormField(res.data)
+                setFormField(res.data);
             })
             .catch(err => {
-                console.log(err)
+                console.log(err);
+                setErrMsg('Operation Unsuccessful! Please try again !');
+                setShowUnsuccessful(true);
             })
     }, [])
 
     return (
-        < div className="EditStudent" >
+        < div className="EditStudent">
 
             <div className='text-center'>
 
                 <Alert variant='primary' show={showSuccessful} onClose={() => setShowSuccessful(false)} dismissible>Successfully Edited !</Alert>
-                <Alert variant='danger' show={showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>Operation Unsuccessful !</Alert>
+                <Alert variant='danger' show={showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>{errMsg}</Alert>
 
             </div>
             <NavBar />
@@ -126,10 +163,11 @@ function EditStudent() {
                             </div>
                         </form>
 
-                        <Footer />
+                        
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
 
     );

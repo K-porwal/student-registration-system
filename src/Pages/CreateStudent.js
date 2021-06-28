@@ -9,13 +9,48 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 function CreateStudent() {
     const [formField, setFormField] = useState({ name: "", address: "", contactNo: "" })
+    const [errMsg, setErrMsg] = useState("Operation Unsuccessful ! Please try again");
     const [showSuccessful, setShowSuccessful] = useState(false);
     const [showUnsuccessful, setShowUnsuccessful] = useState(false);
 
-    console.log(formField);
+    
     const validateForm = () => {
         const { name, address, contactNo } = formField;
-        if (name.trim().length === 0 || address.trim().length === 0 || contactNo.trim().length === 0) {
+        if (name.trim().length === 0)
+        {
+            setErrMsg("Name cannot be empty");
+            return false;
+        }
+        else if (name.trim().length > 25)
+        {
+            setErrMsg("Name cannot be greater than 25 characters");
+            return false;
+        }
+        else if (!RegExp(/^[a-zA-Z ]*$/).test(name))
+        {
+            setErrMsg("Name can only contain alphabets and space");
+            return false;
+        }
+
+        else if(address.trim().length === 0)
+        {
+            setErrMsg("Address cannot be empty");
+            return false;
+        }
+        else if(address.trim().length > 40)
+        {
+            setErrMsg("Address cannot be greater than 40");
+            return false;
+        }
+
+        else if(contactNo.trim().length === 0)
+        {
+            setErrMsg("Contact No. cannot be empty");
+            return false;
+        }
+        else if(!RegExp(/^\d{10}$/).test(contactNo))            
+        {
+            setErrMsg("Contact No. should be of length 10 and consisting of digits") 
             return false;
         }
         return true;
@@ -31,7 +66,6 @@ function CreateStudent() {
             [name]: value
         });
        
-        console.log(formField);
     }
 
     const handleSubmit = (event) => {
@@ -49,21 +83,23 @@ function CreateStudent() {
                     setShowSuccessful(true)
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log(err);
+                    setErrMsg('Something went wrong ! Please try again');
                     setShowUnsuccessful(true)
                 })
 
 
         } else {
-            console.log('Please fill the input fields. All fields are required');
+            console.log('Please fill the input fields properly. All fields are required');
+            setShowUnsuccessful(true);
         }
     }
 
     return (
-        < div className="CreateStudent" >
+        < div className="CreateStudent">
              <div className='text-center'>
             <Alert variant='primary' show = {showSuccessful} onClose={() => setShowSuccessful(false)} dismissible>Successfully Created !</Alert>
-            <Alert variant='danger' show = {showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>Operation Unsuccessful !</Alert>
+            <Alert variant='danger' show = {showUnsuccessful} onClose={() => setShowUnsuccessful(false)} dismissible>{errMsg}</Alert>
             </div>
             <NavBar />
             <div className='container fluid'>
@@ -108,10 +144,11 @@ function CreateStudent() {
                         </form>
                         <br/>
 
-                       <Footer/>
+                       
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
 
     );

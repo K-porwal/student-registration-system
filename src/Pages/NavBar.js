@@ -1,7 +1,6 @@
-import { Navbar, Card, Button } from 'react-bootstrap';
-import '../App.css';
+import { Link } from 'react-router-dom';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {Link,BrowserRouter} from 'react-router-dom';
+import '../App.css';
 
 function NavBar() {
     return (
@@ -13,7 +12,7 @@ function NavBar() {
                 <div className='col-md-6 pt-5 text-center'>
                 <h4>
                     
-                        <Link to ="/">Home</Link>
+                        <Link to ="/" style ={{color:'#ff0000'}}>Home</Link>
                         </h4>
                     <hr/>
                     <h2>

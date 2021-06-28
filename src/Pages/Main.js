@@ -1,20 +1,20 @@
-import NavBar from './NavBar'
-import Footer from './Footer'
-import { Navbar, Card, Button } from 'react-bootstrap';
-import '../App.css';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
+import Footer from './Footer';
+import NavBar from './NavBar';
 function Main() {
 
     const history = useHistory();
 
     return (
-        < div className="Main" >
+        < div className="Main" style={{backgroundImage :  'url("https://amymhaddad.s3.amazonaws.com/morocco-blue.png")'}}>
             <NavBar />
             <div className='container fluid'>
                 <div className='row'>
                     <div className='col-md-3'></div>
-                    <div className='col-md-6 pt-5'>
+                    <div className='col-md-6 pt-5 text-center'>
                         <Button className="btn btn-success" onClick={() => {
                             history.push("/addStudent")
                         }}>
@@ -34,11 +34,12 @@ function Main() {
                             history.push("/deleteStudent")
                         }}> Delete A Student Information </Button>
                         <hr />
-
-                        <Footer/>
+                        <br/>
+                        
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
 
             );
