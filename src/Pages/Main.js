@@ -24,11 +24,11 @@ function Main() {
                         <Button className="btn btn-success" onClick={() => {
                             history.push("/students")
                         }}>
-                            Get All Students</Button>
+                            Display All Students</Button>
                         <hr />
                         <Button className="btn btn-success" onClick={() => {
                             history.push("/getStudent")
-                        }}> Get A Student By Id</Button>
+                        }}> Display A Student By Id</Button>
                         <hr />
                         <Button className="btn btn-success" onClick={() => {
                             history.push("/deleteStudent")
