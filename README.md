@@ -25,3 +25,4 @@ Note:
 2. Retrieving a student information by id will open the Edit Student Information Page. One can choose to edit it or leave it aside.
 3. For seeing changes, please check the Display all Students link present on Home page
 4. Customized validation messages are added everywhere where possible.
+5. Id field is auto-generated bt PostgreSQL which is the database used for this application.
